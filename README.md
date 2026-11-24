@@ -93,3 +93,7 @@ Norton's root. It is set in `%USERPROFILE%\.gradle\gradle.properties` and in
 the `SDKMANAGER_OPTS` user environment variable. If Norton ever regenerates
 its root, export the new one from the Windows certificate store and re-import
 it with `keytool -importcert`.
+
+## License
+
+MIT License. Copyright (c) 2026 Gnomic Software. See [LICENSE](LICENSE).
