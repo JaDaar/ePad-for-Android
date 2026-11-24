@@ -63,7 +63,7 @@ automatically.
 2. In this folder, generate the Android project files. Existing files are left
    alone:
    ```
-   flutter create --platforms=android --org com.epad --project-name epad .
+   flutter create --platforms=android --org com.gnomicsoftware --project-name epad .
    ```
 3. Set the launcher name: in `android/app/src/main/AndroidManifest.xml`,
    change `android:label="epad"` to `android:label="ePad"`.
@@ -75,6 +75,37 @@ automatically.
    ```
 5. Build an installable APK: `flutter build apk --release`. The output is
    `build/app/outputs/flutter-apk/app-release.apk`.
+
+## Release signing
+
+Release builds are signed with a private key described in
+`android/key.properties`. Git ignores that file and the keystore, and neither
+is in this repository. The file looks like this:
+
+```
+storeFile=D:/Keystores/ePad/epad-release.jks
+storePassword=...
+keyAlias=epad
+keyPassword=...
+```
+
+Without `key.properties`, for example in a fresh clone, release builds fall
+back to the debug key and print a warning. That APK installs, but it can't
+update a copy signed with the real key.
+
+**Keep the keystore and its password backed up.** Android only installs an
+update over an existing app when both are signed with the same key. If the
+key is lost, users have to uninstall ePad (losing their notes) before they can
+install a new version.
+
+### Building and installing
+
+- `flutter build apk --release` builds one APK for all supported devices:
+  Android 7.0 and later, on ARM 64-bit, ARM 32-bit and x86_64.
+- `flutter build apk --release --split-per-abi` builds three smaller APKs,
+  one per processor type. Most phones need the `arm64-v8a` one.
+- To install, copy the APK to the device and open it. Allow "Install unknown
+  apps" for that app when Android asks.
 
 ## This machine's setup
 

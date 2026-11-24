@@ -1,4 +1,4 @@
-package com.epad.epad
+package com.gnomicsoftware.epad
 
 import io.flutter.embedding.android.FlutterActivity
 
